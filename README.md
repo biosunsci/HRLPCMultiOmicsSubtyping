@@ -1,8 +1,10 @@
+<sub>This readme is Summarized by Claude and supervised by the authors</sub>
+
 # Analysis code for the HRLPC multi-omics subtyping study
 
 This repository contains the Jupyter notebooks used to generate the bioinformatics figures of the manuscript on molecular classification of high-risk localized and locally advanced prostate cancer (HRLPC) after neoadjuvant hormonal therapy (NHT), based on transcriptomic, proteomic, N-glycoproteomic and genomic profiling (subtypes C1–C3, IHC-based classifier, and patient-derived organoid validation).
 
-> **Data are not included.** The repository ships code only. Raw/processed data files are not deployed here; the expected directory layout and the file each notebook reads are described below. A figure-by-figure map is given in [`FIG_CODE_MAP.md`](FIG_CODE_MAP.md).
+> **Data are not included.** The repository ships code only. Raw/processed data files are not deployed here; the expected directory layout and the file each notebook reads are described below. A figure-by-figure map is given in `Detailed figure → code map` section.
 
 ## Repository layout
 
