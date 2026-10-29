@@ -95,7 +95,7 @@ python -c "from dblibs import Database, echo, write_excel; print('ok')"
 | Fig 2A–2F, S4A–S4E (+ violins of 2B/S4H/S4I) | `Fig2_S3_xR_PLOT.ipynb` |
 | Fig 2C and S4G–S4I (GSEA enrichment plots) | `PY_ANALYSIS_Fig2_Fig3.ipynb` |
 | Fig 3A–3F, 3K, data for 3H–3J, S2J–S2M, S5A–S5I | `Fig3_S4_xR_PLOT.ipynb` |
-| Fig 4C–4G, 4I, 4J, 5C, S6B–S6E, S6G, S6H | `Fig4_Fig5_xPY_PLOT.ipynb` |
+| Fig 4C–4G, 4I, 4J, 5C (t-SNE of proteomic ssGSEA pathway / immune-signature scores), S6B–S6E, S6G, S6H | `Fig4_Fig5_xPY_PLOT.ipynb` |
 | Fig 5D | CMap scores from `GET_DATA_cmap_drugs.ipynb`; plotted manually |
 | Fig S2H–S2I (protein identifications per sample) | `GET_DATA_Glycosylation_Phosphorylation.ipynb` |
 | Fig S2J (glycopeptides per sample) | `Fig3_S4_xR_PLOT.ipynb` |
@@ -103,11 +103,85 @@ python -c "from dblibs import Database, echo, write_excel; print('ok')"
 
 Panels that are schematics, histology/IF images, organoid experiments or other wet-lab results (e.g. Fig 1A, 2G–2I, 4A/4B/4H, 5A/5B/5E–5L, S1A–S1C, S5J–L, S7, S8) have no code here. Several computational panels (3G, 3H–3J, 4K/4L, S3A–S3C, S4F, S5C, S6A, S2B plot) were drawn manually and are marked as such in the notebooks; see `FIG_CODE_MAP.md` for the status of every panel.
 
+### Detailed figure → code map
+
+"cell N" is the 0-based cell index in the notebook. Outputs are in `report_c3/` unless stated otherwise; `ysave('fig.X', ...)` writes the figure (`.pdf`) together with its source data (`.xlsx`). Notebook abbreviations: **F1** = `Fig1_S1S2_xR_PLOT`, **F2** = `Fig2_S3_xR_PLOT`, **F3** = `Fig3_S4_xR_PLOT`, **F45** = `Fig4_Fig5_xPY_PLOT`, **PYG** = `PY_ANALYSIS_Fig2_Fig3`, **GLY** = `GET_DATA_Glycosylation_Phosphorylation`.
+
+| Figure | Notebook (cell) | Output | Notes |
+|---|---|---|---|
+| Fig 1A | — | — | Schematic, no code |
+| Fig 1B / 1C | F1 (23–24 / 26–27) | `fig.1B.1G.S1E.S1F_train86_BCR`, `fig.1C.1H.S1E.S1F_train86_RGR` | Multi-panel composite; pCR vs non-pCR panels are 1B/1C. Multivariate Cox table: `fig.1B.1C.S1E.S1F_cox_multivariate.xlsx` (cell 19) |
+| Fig 1D | F1 (42) | `fig.1D_SNA_oncoplot_77_cases` | |
+| Fig 1E | F1 (62) | `fig.1E.main_heatmap` | |
+| Fig 1F | F1 (76, 80, 82) | `fig.1F_clin`, `fig.1F_clin_data.xlsx`, `fig.1F_clin_AR_score.xlsx` | |
+| Fig 1G / 1H | F1 (23–24 / 26–27) | Same composites as 1B/1C | Subtype C1–C3 panels |
+| Fig 2A | F2 (18) | `fig.2A_prt.gsea.heatmap` | |
+| Fig 2B | F2 (25) | `fig.2B.S4H.S4I_gsea_score` | Same composite contains the S4H/S4I violins |
+| Fig 2C | Data: F2 (31); GSEA plots: PYG (14) | `gsea_input/fig.2C_data_DEG_DAP.xlsx`; `gsea_report/rna_c1/*.prerank.pdf` | |
+| Fig 2D | F2 (60) | `fig.2D_AR_target_gene` | |
+| Fig 2E | F2 (68) | `fig.2E.AR_acti_portion_bar` | |
+| Fig 2F | F2 (79) | `fig.2F.AR_surv` | |
+| Fig 2G–I | — | — | Organoid experiments, no code |
+| Fig 3A | F3 (9–10) | `fig.3A.KEGG.C2.data.xlsx` | Heatmap shown in the notebook; only data saved |
+| Fig 3B | F3 (26) | `fig.3B_immune_heatmap` | |
+| Fig 3C | F3 (34) | `fig.3C_gly_filtered_Glycopiptides4` | |
+| Fig 3D | F3 (70, 80) | `fig.3D.sialylated_glycopeptides_portion`; `fig.3D.data_DE_GLY_C1-C3.xlsx` | |
+| Fig 3E | F3 (136–137) | `fig.3E.rho_SIA_heatmap` (+ `.top_anno`) | |
+| Fig 3F | F3 (152, 163) | `fig.3F.DE_Gly_volcano`, `fig.3F.2nd.DE_Gly_volcano_log2`, `fig.3F.glyco_protein_DE.xlsx` | Two volcano versions are written (ΔAbundance and log2FC); see the thresholds used in each |
+| Fig 3G | — | — | Manually drawn (bubble plot) |
+| Fig 3H / 3I / 3J | F3 (185–203) | `fig.3H.3I.3J/fig.3H.3I.3J._C{1,2,3}_GSEA_correlation.xlsx` etc. | Only correlation data generated; panels drawn manually |
+| Fig 3K | F3 (216) | `fig.3K.MFAP4.violin` | |
+| Fig 3L | — | — | Schematic, no code |
+| Fig 4A, 4B, 4H | — | — | Workflow / staining / schematics |
+| Fig 4C | F45 (33) | `fig.4C.scatter.IRS_scores.pdf`, `fig.4C.scatter.xlsx` | |
+| Fig 4D–4G | F45 (46) | `fig.4D.4E.4F.4G.IHC_maker_AUC.pdf` + `_input/_output.xlsx` | Single-marker / pairwise-marker ROC |
+| Fig 4I / 4J | F45 (90 / 99) | `fig.4I.Concordance.retrospective.pdf`, `fig.4J.Concordance.prospective.pdf` | Average PPV computed from the confusion matrix |
+| Fig 4K / 4L | — | — | Manually drawn KM curves; labels in `export_c3/fig4_ihc_{trainset,validset}_labeled.dfx` |
+| Fig 5A, 5B, 5E–5L | — | — | Experiments / schematics |
+| Fig 5C | F45 (113) | `fig.5C.scatter.tSNE.pdf`, `fig.5C.scatter.xlsx` | t-SNE of proteomic ssGSEA pathway and immune-signature scores |
+| Fig 5D | Manual; data from `GET_DATA_cmap_drugs` | `external_data/Cmap_drug_screen/_CMAP_DRUGS.xlsx` | |
+| Fig S1A–S1C | — | — | Workflow / pathology images |
+| Fig S1D | F1 (140) | `fig.S1D.MD_count_barplot` | |
+| Fig S1E / S1F | F1 (23–27) | Same composites as 1B/1C | Clinicopathological features / RCB panels |
+| Fig S2A | — | — | Schematic |
+| Fig S2B | F1 (87–88) | `fig.S2B.data.glyco_4levels.xlsx` | Data only; plot drawn manually |
+| Fig S2C | F1 (105–106) | `fig.S2C.frequencies_compare_cohorts` | |
+| Fig S2D–S2G | F1 (144, 147, 150, 153; data 134) | `fig.S2D.tSNE.RNA.response`, `fig.S2E.tSNE.prt.response`, `fig.S2F.tSNE.RNA.MD`, `fig.S2G.tSNE.prt.MD` | |
+| Fig S2H / S2I | GLY (317) | `fig.S2H.ID_Identifed_Raw.Prt_retrospective.pdf`, `fig.S2I.ID_Identifed_Raw.Prt_prospective.pdf` | Statistics: `fig.S2H.S2I.ID_Identifed_Raw_vs_NA_filled.Statistics.xlsx` (cell 330) |
+| Fig S2J | F3 (44) | `fig.S2J_Identified_Number_bar` | |
+| Fig S2K | F3 (48) | `fig.S2K.glycosylation_sites_scatter` | |
+| Fig S2L / S2M | F3 (57 / 61) | `fig.S2L.glycosites_per_glycoprotein`, `fig.S2M.glycans_per_glycosylation_site` | |
+| Fig S3A–S3C | — | — | Manually drawn |
+| Fig S3D / S3E | F1 (24 / 27) | `fig.S3D_all138_BCR`, `fig.S3E_all138_RGR` | Only the pCR / C1–C3 panels are used |
+| Fig S3F–S3H | F1 (112–113); data from `GEN_EXT_SURVIVAL_DATA_PY` | `fig.S3F.S3G.S3H/fig.S3F.S3G.S3H.ext_<cohort>_<endpoint>.pdf`; `fig.S3F.S3G.S3H.data.ext_survival.xlsx` | |
+| Fig S4A | F2 (87) | `fig.S4A.rna_hm_im_heat` | |
+| Fig S4B | F2 (98–99) | `fig.S4B.rna`, `fig.S4B.prt`, `fig.S4B.HM.*.data.xlsx` | |
+| Fig S4C / S4D | F2 (106 / 107) | `fig.S4C.rna_deg_vol`, `fig.S4D.prt_dap_vol` | |
+| Fig S4E | F2 (124) | `fig.S4E.KEGG.C1.data.xlsx` | |
+| Fig S4F | — | — | Manually drawn (EnrichmentMap) |
+| Fig S4G | PYG (18) | `gsea_report/rna_c1_hm/HALLMARK_{ANDROGEN_RESPONSE,MYC_TARGETS_V1}.prerank.pdf` | |
+| Fig S4H / S4I | F2 (25); PYG (18) | `fig.2B.S4H.S4I_gsea_score`; `gsea_report/rna_c1_hm/HALLMARK_{E2F_TARGETS,FATTY_ACID_METABOLISM}.prerank.pdf` | |
+| Fig S5A / S5B | F3 (224 / 225) | `fig.S5A.rna_C2_deg_vol`, `fig.S5B.prt_C2_dap_vol` | |
+| Fig S5C | — | — | Manually drawn (EnrichmentMap) |
+| Fig S5D | F3 (234) | `fig.S5D.cluster_C2_hm_violin` | |
+| Fig S5E / S5F | F3 (244) | `fig.S5E.S5F.estimate_imm_score_violin` | |
+| Fig S5G | F3 (87) | `fig.S5G.glycan_portion_bar` | |
+| Fig S5H | F3 (141) | `fig.S5H.DE.ST.enzymes.boxplot` | |
+| Fig S5I | F3 (173, 175, 181) | `fig.S5I.prt_abundance.violin.selected`, `fig.S5I.glyco_ios_stregth.violin.selected` | |
+| Fig S5J–S5L | — | — | Staining / blotting experiments |
+| Fig S6A | — | — | Manually drawn |
+| Fig S6B / S6C | F45 (53) | `fig.S6B.S6C.Prt_abundance_IHC_maker_AUC.pdf` | Protein-abundance ROC of the same marker sets |
+| Fig S6D / S6E | F45 (74 / 76) | `fig.S6D.ROC_test_set.pdf`, `fig.S6E.ROC_train_test_set.pdf` | |
+| Fig S6F | — | — | Staining images |
+| Fig S6G | F45 (39) | `fig.S6G.scatter.IRS_scores.prospective_cohort.pdf` | |
+| Fig S6H | F45 (63) | `fig.S6H.IHC_maker_AUC_prospective_cohort.pdf` | |
+| Fig S7, S8 | — | — | Organoid experiments |
+
 ## Suggested execution order
 
 1. **Data preparation** (once): `GET_ext_data` → `GET_DATA_Glycosylation_Phosphorylation` → `GET_DATA_cmap_drugs`.
 2. **Subtype definition**: the consensus-clustering outputs (`export_c3/fig1_subtype_heatmap_mat.dfx`, `fig1_subtype_row_cluster.dfx`, `fig1_subtype_column_cluster.dfx`, `glx_86.dfx`, `wes_glx.dfx`) come from an upstream clustering step that is not part of this repository.
-3. **Subtype labels for all 126 non-pCR cases**: run the section *"Subtype labels for all 126 non-pCR cases"* in `Fig4_Fig5_xPY_PLOT.ipynb` first (after its *Prepare Data* section). It writes `export_c3/fig1_subtype_predict_and_pca_data.xlsx` (and a copy in `report_c3/`), which `Fig1_S1S2_xR_PLOT` and `Fig2_S3_xR_PLOT` read. It uses the trained random-forest model `export_c3/fig4_gsea_rf_model_evenly_dis`.
+3. **Subtype labels for all 126 non-pCR cases**: run the section *"Subtype labels for all 126 non-pCR cases"* in `Fig4_Fig5_xPY_PLOT.ipynb` first (after its *Prepare Data* section). It writes `export_c3/fig1_subtype_predict_and_pca_data.xlsx` (and a copy in `report_c3/`), which `Fig1_S1S2_xR_PLOT` and `Fig2_S3_xR_PLOT` read. It uses the trained random-forest model `export_c3/fig4_gsea_rf_model_evenly_dis`, which is **trained upstream and is not part of this repository**. Note that the retrospective and prospective ssGSEA matrices are z-scored separately (see the note in that notebook).
 4. `GEN_EXT_SURVIVAL_DATA_PY` produces `export_c3/ext_data_*` used for Fig S3F–H.
 5. **Figures**: `Fig2_S3_xR_PLOT` (writes `fig2_*` intermediates and `report_c3/gsea_input/fig.2C_data_DEG_DAP.xlsx`) → `PY_ANALYSIS_Fig2_Fig3` → `Fig1_S1S2_xR_PLOT` → `Fig3_S4_xR_PLOT` (writes `fig3_*` intermediates) → rest of `Fig4_Fig5_xPY_PLOT` (writes `fig4_*` intermediates, needed by Fig 5C).
 6. **Reviewer responses**: `figS9_R_response_R`, `figS10_PY_response_PY`.
